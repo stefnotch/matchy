@@ -11,7 +11,8 @@
     "test:unit": "vitest --environment jsdom",
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore && eslint ./src -c custom.eslintrc.cjs --ext .ts --fix --ignore-path .gitignore",
+    "lint2": "eslint ./src -c custom.eslintrc.cjs --ext .ts --fix --ignore-path .gitignore"
   },
   "dependencies": {
     "@js-temporal/polyfill": "^0.4.2",
@@ -37,6 +38,7 @@
     "@vue/tsconfig": "^0.1.3",
     "dotenv": "^16.0.1",
     "eslint": "^8.22.0",
+    "eslint-plugin-result": "file:./eslint-plugin-result",
     "eslint-plugin-vue": "^9.3.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.7.1",
@@ -44,6 +46,7 @@
     "unocss": "^0.45.6",
     "unplugin-vue-components": "^0.21.1",
     "vite": "^3.0.8",
-    "vue-tsc": "^0.40.1"
+    "vue-tsc": "^0.40.1",
+    "eslint-plugin-stefnotch": "file:../eslint-plugin-stefnotch"
   }
 }

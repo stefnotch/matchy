@@ -25,18 +25,21 @@ export function useEvents(userStore: ReturnType<typeof useUserStore>) {
   const createEvent = async (eventData: EditEventInfo) => {
     if (!userStore.user) throw new Error("User not loaded");
 
-    const { data: groups, error: errorEventGroups } = await supabase.from("event_group").insert([
-      {
-        title: eventData.event_groups.groupA.title,
-        description: eventData.event_groups.groupA.description,
-      },
-      {
-        title: eventData.event_groups.groupB.title,
-        description: eventData.event_groups.groupB.description,
-      },
-    ]);
+    const { data: groups, error: errorEventGroups } = await supabase
+      .from("event_group")
+      .insert([
+        {
+          title: eventData.event_groups.groupA.title,
+          description: eventData.event_groups.groupA.description,
+        },
+        {
+          title: eventData.event_groups.groupB.title,
+          description: eventData.event_groups.groupB.description,
+        },
+      ]);
     if (errorEventGroups) throw errorEventGroups;
-    if (groups.length !== 2) throw new Error("Event groups not created, length was " + groups.length);
+    if (groups.length !== 2)
+      throw new Error("Event groups not created, length was " + groups.length);
 
     const { data: groupPair, error: errorEventGroupPair } = await supabase
       .from("event_group_pair")
