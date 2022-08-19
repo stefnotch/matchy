@@ -1,28 +1,22 @@
 import { useStorage } from "@vueuse/core";
+import { Option, Some, Result, Ok } from "oxide.ts";
 
 // every user is a visitor and organizer at the same time and can access different views in the frontend
 export type PageModes = "eventVisitor" | "eventOrganizer";
 export const PageMode = useStorage<PageModes>("page-mode", "eventVisitor");
 
-async function cat() {
-  return 1;
+const n: Option<string> = Some("value");
+
+const y: Result<string, null> = Ok("value");
+
+async function asyncReturnsResult() {
+  return Ok("value");
 }
-const cat1 = 3;
-console.log(cat1);
 
-console.log(cat());
-const doSomething = async (a?: any) => {
-  console.log();
-};
-const promise = new Promise((resolve, reject) => resolve("value"));
-promise;
-
-async function returnsPromise() {
-  return "value";
+function returnsResult() {
+  return Some("value");
 }
-returnsPromise().then(() => {});
-
-Promise.reject("value").catch();
-
-Promise.reject("value").finally();
-Promise.reject("value");
+asyncReturnsResult();
+returnsResult();
+Ok("value");
+Some("value");

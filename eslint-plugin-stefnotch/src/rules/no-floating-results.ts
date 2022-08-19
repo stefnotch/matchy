@@ -19,15 +19,13 @@ export default createRule<Options, MessageId>({
   name: "no-floating-results",
   meta: {
     docs: {
-      description:
-        "Require Promise-like statements to be handled appropriately",
+      description: "Require .unwrap()-able objects to be handled appropriately",
       recommended: "error",
       requiresTypeChecking: true,
     },
     hasSuggestions: true,
     messages: {
-      floating:
-        "Promises must be awaited, end with a call to .catch, or end with a call to .then with a rejection handler.",
+      floating: "Results and Options must be handled.",
     },
     schema: [
       {
@@ -132,51 +130,21 @@ export default createRule<Options, MessageId>({
 //   https://github.com/ajafff/tsutils/blob/49d0d31050b44b81e918eae4fbaf1dfe7b7286af/util/type.ts#L95-L125
 function isPromiseLike(checker: ts.TypeChecker, node: ts.Node): boolean {
   const type = checker.getTypeAtLocation(node);
+
+  /*const stringType = checker.typeToString(type);*/
+  /*
+  const x = checker.typeToTypeNode(type, undefined, undefined);
+  if (x) {
+    (x as ts.TupleTypeNode).
+  }
+  (globalThis as any)["console"].log("e " + x?.getText(undefined));
+*/
   for (const ty of tsutils.unionTypeParts(checker.getApparentType(type))) {
-    const then = ty.getProperty("then");
-    if (then === undefined) {
-      continue;
-    }
+    //(globalThis as any)["console"].log(checker.typeToString(type));
+    //(globalThis as any)["console"].log("sym" + type.getSymbol()?.getName());
 
-    const thenType = checker.getTypeOfSymbolAtLocation(then, node);
-    if (
-      hasMatchingSignature(
-        thenType,
-        (signature) =>
-          signature.parameters.length >= 2 &&
-          isFunctionParam(checker, signature.parameters[0], node) &&
-          isFunctionParam(checker, signature.parameters[1], node)
-      )
-    ) {
-      return true;
-    }
-  }
-  return false;
-}
-
-function hasMatchingSignature(
-  type: ts.Type,
-  matcher: (signature: ts.Signature) => boolean
-): boolean {
-  for (const t of tsutils.unionTypeParts(type)) {
-    if (t.getCallSignatures().some(matcher)) {
-      return true;
-    }
-  }
-
-  return false;
-}
-
-function isFunctionParam(
-  checker: ts.TypeChecker,
-  param: ts.Symbol,
-  node: ts.Node
-): boolean {
-  const type: ts.Type | undefined = checker.getApparentType(
-    checker.getTypeOfSymbolAtLocation(param, node)
-  );
-  for (const t of tsutils.unionTypeParts(type)) {
-    if (t.getCallSignatures().length !== 0) {
+    const then = ty.getProperty("unwrap");
+    if (then !== undefined) {
       return true;
     }
   }

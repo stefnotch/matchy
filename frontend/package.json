@@ -19,6 +19,7 @@
     "@supabase/supabase-js": "^1.35.6",
     "@vueuse/core": "^9.1.0",
     "ky": "^0.31.1",
+    "oxide.ts": "^1.0.5",
     "pinia": "^2.0.16",
     "pinia-shared-state": "^0.2.8",
     "unplugin-auto-import": "^0.10.1",
@@ -39,6 +40,7 @@
     "dotenv": "^16.0.1",
     "eslint": "^8.22.0",
     "eslint-plugin-result": "file:./eslint-plugin-result",
+    "eslint-plugin-stefnotch": "file:../eslint-plugin-stefnotch",
     "eslint-plugin-vue": "^9.3.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.7.1",
@@ -46,7 +48,6 @@
     "unocss": "^0.45.6",
     "unplugin-vue-components": "^0.21.1",
     "vite": "^3.0.8",
-    "vue-tsc": "^0.40.1",
-    "eslint-plugin-stefnotch": "file:../eslint-plugin-stefnotch"
+    "vue-tsc": "^0.40.1"
   }
 }
